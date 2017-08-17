@@ -41,7 +41,7 @@
     "watch": "babel src --watch --out-dir dist",
     "build-styles": "node ./lib/build-stylesheets.js",
     "build-languages": "node ./lib/build-languages.js",
-    "prepublish": "npm run build-styles && npm run build-languages && npm run build",
+    "postinstall": "npm run build-styles && npm run build-languages && npm run build",
     "test": "jest",
     "test-ci": "jest && codecov"
   },
