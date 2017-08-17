@@ -6,8 +6,11 @@ function getNewLines(str) {
   return str.match(newLineRegex);
 }
 
+function padZero(number) {
+  return number < 10 && number >= 0 ? '0' + number : number;
+}
 
-function getLineNumbers({ lines, startingLineNumber, style }) {
+function getLineNumbers({ lines, startingLineNumber, style, leftPadZero }) {
   return lines.map((_, i) => {
     const number = i + startingLineNumber;
     return (
@@ -16,7 +19,7 @@ function getLineNumbers({ lines, startingLineNumber, style }) {
         className='react-syntax-highlighter-line-number' 
         style={typeof style === 'function' ? style(number) : style}
       >
-        {`${number}\n`}
+        {`${leftPadZero ? padZero(number) : number}\n`}
       </span> 
     );
   });
@@ -26,14 +29,16 @@ function LineNumbers({
   codeString, 
   containerStyle = {float: 'left', paddingRight: '10px'}, 
   numberStyle = {},
-  startingLineNumber 
+  startingLineNumber,
+  leftPadZero = false
 }) {
   return (
     <code style={containerStyle}>
       {getLineNumbers({
         lines: codeString.replace(/\n$/, '').split('\n'), 
         style: numberStyle,
-        startingLineNumber
+        startingLineNumber,
+        leftPadZero
       })}
     </code>
   );
@@ -147,6 +152,7 @@ export default function (lowlight, defaultStyle) {
   startingLineNumber = 1,
   lineNumberContainerStyle,
   lineNumberStyle,
+  leftPadZero,
   wrapLines,
   lineStyle = {},
   renderer,
@@ -185,6 +191,7 @@ export default function (lowlight, defaultStyle) {
         containerStyle={lineNumberContainerStyle}
         numberStyle={lineNumberStyle}
         startingLineNumber={startingLineNumber}
+        leftPadZero={leftPadZero}
         codeString={children}
       />
       :
