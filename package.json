@@ -1,5 +1,5 @@
 {
-  "name": "react-syntax-highlighter",
+  "name": "react-code-highlighter",
   "version": "5.6.3",
   "description": "sane syntax highlighting component for react",
   "main": "dist/index.js",
@@ -41,7 +41,7 @@
     "watch": "babel src --watch --out-dir dist",
     "build-styles": "node ./lib/build-stylesheets.js",
     "build-languages": "node ./lib/build-languages.js",
-    "postinstall": "npm install && npm run build-styles && npm run build-languages && npm run build",
+    "prepublish": "npm run build-styles && npm run build-languages && npm run build",
     "test": "jest",
     "test-ci": "jest && codecov"
   },
